@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Account Registration - Dengue Tracking System{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center auth-container">
+    <div class="col-md-7 col-lg-6">
+        
+        <!-- Registration Card -->
+        <div class="card card-auth mb-4">
+            <div class="card-header card-header-maroon text-center py-3">
+                <i class="fas fa-user-plus fa-2x mb-2 text-warning"></i>
+                <h4 class="fw-bold mb-1">Account Registration</h4>
+                <p class="small text-white-50 mb-0">Barangay Dengue Case Tracking System - Unisan, Quezon</p>
+            </div>
+            
+            <div class="card-body p-4">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                  {% if messages %}
+                    {% for category, message in messages %}
+                      <div class="alert alert-{{ category }} alert-dismissible fade show small py-2" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                    {% endfor %}
+                  {% endif %}
+                {% endwith %}
+
+                <form method="POST" action="{{ url_for('auth.register') }}">
+                    <div class="mb-3">
+                        <label class="form-label text-secondary small fw-bold">Full Name</label>
+                        <input type="text" name="full_name" class="form-control" required placeholder="Enter full name">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-secondary small fw-bold">Email Address</label>
+                        <input type="email" name="email" class="form-control" required placeholder="unisan@gmail.com">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-secondary small fw-bold">Password</label>
+                            <input type="password" name="password" class="form-control" required placeholder="Password">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-secondary small fw-bold">Confirm Password</label>
+                            <input type="password" name="confirm_password" class="form-control" required placeholder="Confirm Password">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-secondary small fw-bold">Role</label>
+                            <select name="role" class="form-select" required>
+                                <option value="" selected disabled>Select Role</option>
+                                <option value="Health Worker">Barangay Health Worker</option>
+                                <option value="Barangay Official">Barangay Official</option>
+                                <option value="Municipal Health Office">Municipal Health Office</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-secondary small fw-bold">Barangay Assignment</label>
+                            <input type="text" name="barangay" class="form-control" required placeholder="e.g. Poblacion">
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label text-secondary small fw-bold">Contact Number</label>
+                        <input type="text" name="contact_number" class="form-control" placeholder="e.g. 09123456789">
+                    </div>
+
+                    <button type="submit" class="btn btn-maroon w-100 py-2 shadow-sm">
+                        <i class="fas fa-user-check me-2"></i>Register Account
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Back to Login Framed Box -->
+        <div class="text-end">
+            <div class="back-login-box shadow-sm">
+                <a href="{{ url_for('auth.login') }}" class="btn btn-maroon">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Login
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

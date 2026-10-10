@@ -1,0 +1,43 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Maroon Sidebar */
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background-color: #6b1424;
+    position: fixed;
+    top: 0;
+    left: 0;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 10px;
+    z-index: 1000;
+}
+
+.sidebar .nav-link {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 5px;
+    border-radius: 8px;
+    padding: 10px 15px;
+}
+
+.sidebar .nav-link:hover, 
+.sidebar .nav-link.active {
+    background-color: #8a1a2f;
+    color: #ffffff;
+}
+
+.sidebar-footer-box {
+    background-color: #520f1b;
+}
+
+/* Main Content Area */
+.main-content {
+    margin-left: 260px;
+    padding: 20px;
+}

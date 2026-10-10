@@ -1,0 +1,66 @@
+{% extends "base_dashboard.html" %}
+{% block title %}Home - Dengue Tracking System{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="fw-bold">Good morning, {{ user.full_name }}!</h3>
+        <p class="text-muted mb-0">Here's the latest update on dengue cases in Unisan, Quezon[cite: 1].</p>
+    </div>
+    <div class="text-end bg-white p-2 px-3 rounded shadow-sm border">
+        <i class="far fa-calendar-alt text-danger me-1"></i> <span class="fw-bold">September 23, 2025</span><br>
+        <small class="text-muted">10:24 AM</small>
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm p-3 border-start border-danger border-4">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <span class="text-muted small">Total Reported Cases</span>
+                    <h2 class="fw-bold mb-0">24</h2>
+                    <small class="text-danger fw-bold"><i class="fas fa-arrow-up"></i> 20% vs. last month</small>
+                </div>
+                <div class="text-danger fs-1"><i class="fas fa-users"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm p-3 border-start border-success border-4">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <span class="text-muted small">Recovered Cases</span>
+                    <h2 class="fw-bold mb-0">18</h2>
+                    <small class="text-success">75% recovery rate</small>
+                </div>
+                <div class="text-success fs-1"><i class="fas fa-user-shield"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm p-3 border-start border-warning border-4">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <span class="text-muted small">Active Cases</span>
+                    <h2 class="fw-bold mb-0">6</h2>
+                    <small class="text-danger fw-bold"><i class="fas fa-arrow-up"></i> 2% vs. last week</small>
+                </div>
+                <div class="text-warning fs-1"><i class="fas fa-exclamation-triangle"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm p-3 border-start border-primary border-4">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <span class="text-muted small">Total Barangays Monitored</span>
+                    <h2 class="fw-bold mb-0">8</h2>
+                    <small class="text-muted">in Unisan, Quezon</small>
+                </div>
+                <div class="text-primary fs-1"><i class="fas fa-map-marked-alt"></i></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

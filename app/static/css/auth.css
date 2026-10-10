@@ -1,0 +1,51 @@
+/* Authentication Styles */
+body {
+    background-color: #f4f6f9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+}
+
+.auth-container {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.card-auth {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.card-header-maroon {
+    background-color: #6b1424;
+    color: #ffffff;
+    padding: 1.25rem 1.5rem;
+}
+
+.btn-maroon {
+    background-color: #6b1424;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-maroon:hover {
+    background-color: #520f1b;
+    color: #ffffff;
+}
+
+/* Back to Login outer box style */
+.back-login-box {
+    background-color: #ffffff;
+    border: 2px solid #6b1424;
+    border-radius: 10px;
+    padding: 12px;
+    display: inline-block;
+}

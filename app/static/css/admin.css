@@ -1,0 +1,9 @@
+.admin-table-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+.admin-badge-pending {
+    background-color: #ffc107;
+    color: #000000;
+}
