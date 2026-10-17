@@ -47,9 +47,13 @@
                             <td><span class="badge admin-badge-pending text-dark">{{ u.role }}</span></td>
                             <td>{{ u.barangay }}</td>
                             <td>
-                                <a href="{{ url_for('admin.approve_user', user_id=u.id) }}" class="btn btn-success btn-sm">
-                                    <i class="fas fa-check me-1"></i> Approve User
-                                </a>
+<form method="POST"
+      action="{{ url_for('admin.approve_user', user_id=u.id) }}"
+      onsubmit="return confirm('Approve this user account?');">
+    <button type="submit" class="btn btn-success btn-sm">
+        <i class="fas fa-check me-1"></i> Approve User
+    </button>
+</form>
                             </td>
                         </tr>
                         {% else %}

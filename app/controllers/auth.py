@@ -1,17 +1,23 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from flask_login import login_user, logout_user, login_required, current_user
+from flask_login import login_user, logout_user, login_required
 from app import db
 from app.models.user import User
 
-# Initialize Blueprint (Siguraduhing auth_bp o auth ang gamit)
 auth = Blueprint('auth', __name__)
-auth_bp = auth  # Para sa compatibility sa __init__.py kung auth_bp ang gamit doon
+auth_bp = auth
+
+ALLOWED_ROLES = {
+    'Health Worker',
+    'Barangay Official',
+    'Municipal Health Office'
+}
+
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('password')
+        email = request.form.get('email', '').strip().lower()
+        password = request.form.get('password', '')
 
         user = User.query.filter_by(email=email).first()
 
@@ -19,18 +25,27 @@ def login():
             flash('Invalid email or password. Please try again.', 'danger')
             return redirect(url_for('auth.login'))
 
-        if not user.is_approved and user.role != 'Admin':
-            flash('Your account is pending for Admin approval. Please wait for confirmation.', 'warning')
+        if user.role != 'Administrator' and not user.is_approved:
+            flash(
+                'Your account is pending Administrator approval.',
+                'warning'
+            )
             return redirect(url_for('auth.login'))
 
         login_user(user)
 
-        if user.role == 'Admin':
+        if user.role == 'Administrator':
             return redirect(url_for('admin.admin_dashboard'))
-        else:
-            # Pansamantalang redirection habang ginagawa pa ang public dashboard
-            flash('Login successful! Welcome to the system.', 'success')
-            return redirect(url_for('auth.login'))
+        elif user.role == 'Health Worker':
+            return redirect(url_for('health_worker.dashboard'))
+        elif user.role == 'Barangay Official':
+            return redirect(url_for('barangay_official.dashboard'))
+    elif user.role == 'Municipal Health Office':
+        return redirect(url_for('municipal_health.dashboard'))
+    else:
+        logout_user()
+    flash('Your account role is not recognized.', 'danger')
+    return redirect(url_for('auth.login'))
 
     return render_template('public/login.html')
 
@@ -38,26 +53,39 @@ def login():
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        full_name = request.form.get('full_name')
-        email = request.form.get('email')
-        password = request.form.get('password')
-        role = request.form.get('role')
-        barangay = request.form.get('barangay')
-        contact_number = request.form.get('contact_number')
+        full_name = request.form.get('full_name', '').strip()
+        email = request.form.get('email', '').strip().lower()
+        password = request.form.get('password', '')
+        confirm_password = request.form.get('confirm_password', '')
+        role = request.form.get('role', '')
+        barangay = request.form.get('barangay', '').strip()
+        contact_number = request.form.get('contact_number', '').strip()
 
-        # Check if email is already registered
-        existing_user = User.query.filter_by(email=email).first()
-        if existing_user:
-            flash('This email address is already registered. Please use another email or log in.', 'danger')
+        if not all([
+            full_name, email, password,
+            confirm_password, role, barangay
+        ]):
+            flash('Please complete all required fields.', 'danger')
             return redirect(url_for('auth.register'))
 
-        # Create new user
+        if password != confirm_password:
+            flash('Passwords do not match.', 'danger')
+            return redirect(url_for('auth.register'))
+
+        if role not in ALLOWED_ROLES:
+            flash('Invalid role selected.', 'danger')
+            return redirect(url_for('auth.register'))
+
+        if User.query.filter_by(email=email).first():
+            flash('This email is already registered.', 'danger')
+            return redirect(url_for('auth.register'))
+
         new_user = User(
             full_name=full_name,
             email=email,
             role=role,
             barangay=barangay,
-            contact_number=contact_number,
+            contact_number=contact_number or None,
             is_approved=False
         )
         new_user.set_password(password)
@@ -65,11 +93,15 @@ def register():
         try:
             db.session.add(new_user)
             db.session.commit()
-            flash('Registration successful! Please wait for Admin approval before logging in.', 'success')
+            flash(
+                'Registration successful! Wait for Administrator approval.',
+                'success'
+            )
             return redirect(url_for('auth.login'))
-        except Exception as e:
+        except Exception:
             db.session.rollback()
-            flash('An error occurred during registration. Please try again.', 'danger')
+            flash('Registration failed. Please try again.', 'danger')
+            return redirect(url_for('auth.register'))
 
     return render_template('public/register.html')
 

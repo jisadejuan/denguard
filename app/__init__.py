@@ -11,7 +11,7 @@ def create_app():
     app = Flask(__name__)
     
     app.config['SECRET_KEY'] = 'unisan-dengue-tracking-secret-key-2026'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://web_app:DeNgUaRd26!@localhost/sampledb'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://web_app:strongpassword@localhost/dengue_auth'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     
     db.init_app(app)
