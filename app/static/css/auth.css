@@ -1,8 +1,16 @@
 /* Authentication Styles */
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+}
+
 body {
     background-color: #f4f6f9;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     min-height: 100vh;
+    overflow-x: clip;
 }
 
 .auth-container {
@@ -24,6 +32,13 @@ body {
     background-color: #6b1424;
     color: #ffffff;
     padding: 1.25rem 1.5rem;
+}
+
+.card-header-maroon small {
+    color: #ffffff !important;
+    opacity: 1 !important;
+    display: block;
+    visibility: visible;
 }
 
 .btn-maroon {

@@ -1,32 +1,29 @@
 {% extends "base_dashboard.html" %}
-{% block title %}Admin Dashboard - Dengue Tracking System{% endblock %}
+
+{% block title %}Admin Dashboard - Dengue Case Tracking & Monitoring System{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
 
-<div class="container-fluid">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3 class="fw-bold">Admin Management Dashboard</h3>
+<div class="container-fluid admin-page">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <h3 class="fw-bold mb-0">Admin Management Dashboard</h3>
+
+        <a href="{{ url_for('admin.manage_users') }}"
+           class="btn btn-outline-primary">
+            <i class="fas fa-users me-2"></i>Manage Users
+        </a>
     </div>
-    <hr>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        {% for category, message in messages %}
-          <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
+    <hr>
 
     <div class="card border-0 shadow-sm mb-4 admin-table-container">
         <div class="card-header bg-white py-3">
             <h5 class="fw-bold mb-0 text-warning">
-                <i class="fas fa-user-clock me-2"></i>Pending Registrations (Requires Approval)
+                <i class="fas fa-user-clock me-2"></i>
+                Pending Registrations (Requires Approval)
             </h5>
         </div>
+
         <div class="card-body p-0">
             <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0">
@@ -39,23 +36,30 @@
                             <th>Action</th>
                         </tr>
                     </thead>
+
                     <tbody>
                         {% for u in pending_users %}
                         <tr>
                             <td class="fw-bold">{{ u.full_name }}</td>
                             <td>{{ u.email }}</td>
-                            <td><span class="badge admin-badge-pending text-dark">{{ u.role }}</span></td>
-                            <td>{{ u.barangay }}</td>
                             <td>
-<form method="POST"
-      action="{{ url_for('admin.approve_user', user_id=u.id) }}"
-      onsubmit="return confirm('Approve this user account?');">
-    <button type="submit" class="btn btn-success btn-sm">
-        <i class="fas fa-check me-1"></i> Approve User
-    </button>
-</form>
+                                <span class="badge admin-badge-pending text-dark">
+                                    {{ u.role }}
+                                </span>
+                            </td>
+                            <td>{{ u.barangay or '—' }}</td>
+                            <td>
+                                <form method="POST"
+                                      action="{{ url_for('admin.approve_user', user_id=u.id) }}"
+                                      onsubmit="return confirm('Approve this user account?');">
+                                    <button type="submit" class="btn btn-success btn-sm">
+                                        <i class="fas fa-check me-1"></i>
+                                        Approve User
+                                    </button>
+                                </form>
                             </td>
                         </tr>
+
                         {% else %}
                         <tr>
                             <td colspan="5" class="text-center text-muted py-4">
@@ -69,4 +73,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}

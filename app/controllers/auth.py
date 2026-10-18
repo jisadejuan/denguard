@@ -13,6 +13,8 @@ ALLOWED_ROLES = {
 }
 
 
+
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -36,16 +38,20 @@ def login():
 
         if user.role == 'Administrator':
             return redirect(url_for('admin.admin_dashboard'))
+
         elif user.role == 'Health Worker':
             return redirect(url_for('health_worker.dashboard'))
+
         elif user.role == 'Barangay Official':
             return redirect(url_for('barangay_official.dashboard'))
-    elif user.role == 'Municipal Health Office':
-        return redirect(url_for('municipal_health.dashboard'))
-    else:
-        logout_user()
-    flash('Your account role is not recognized.', 'danger')
-    return redirect(url_for('auth.login'))
+
+        elif user.role == 'Municipal Health Office':
+            return redirect(url_for('municipal_health.dashboard'))
+
+        else:
+            logout_user()
+            flash('Your account role is not recognized.', 'danger')
+            return redirect(url_for('auth.login'))
 
     return render_template('public/login.html')
 

@@ -1,0 +1,90 @@
+{% extends "base_dashboard.html" %}
+
+{% block title %}Manage Users - DENGUARD{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4 admin-page">
+
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">User Management</h2>
+            <p class="text-muted mb-0">View and manage registered accounts.</p>
+        </div>
+
+        <a href="{{ url_for('admin.admin_dashboard') }}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+        </a>
+    </div>
+
+    <!-- Flash notifications are displayed by base_dashboard.html -->
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white py-3">
+            <h5 class="fw-bold mb-0">
+                <i class="fas fa-users me-2"></i>Registered Users
+                <span class="badge bg-secondary">{{ users|length }}</span>
+            </h5>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Barangay</th>
+                            <th>Approval Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for u in users %}
+                        <tr>
+                            <td>{{ u.full_name }}</td>
+                            <td>{{ u.email }}</td>
+                            <td>{{ u.role }}</td>
+                            <td>{{ u.barangay or '—' }}</td>
+
+                            <td>
+                                {% if u.is_approved %}
+                                    <span class="badge bg-success">Approved</span>
+                                {% else %}
+                                    <span class="badge bg-warning text-dark">Pending</span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                {% if u.id != current_user.id and u.role != 'Administrator' %}
+                                <form
+                                    method="POST"
+                                    action="{{ url_for('admin.delete_user', user_id=u.id) }}"
+                                    onsubmit="return confirm('Are you sure you want to permanently remove this account?');"
+                                >
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash me-1"></i>Remove
+                                    </button>
+                                </form>
+                                {% else %}
+                                    <span class="text-muted small">Protected account</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+
+                        {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-4">
+                                No registered users found.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

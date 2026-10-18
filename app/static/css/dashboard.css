@@ -1,6 +1,8 @@
 body {
     background-color: #f8f9fa;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    min-height: 100vh;
 }
 
 /* Maroon Sidebar */
@@ -16,6 +18,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     padding: 20px 10px;
+    box-sizing: border-box;
     z-index: 1000;
 }
 
@@ -26,7 +29,7 @@ body {
     padding: 10px 15px;
 }
 
-.sidebar .nav-link:hover, 
+.sidebar .nav-link:hover,
 .sidebar .nav-link.active {
     background-color: #8a1a2f;
     color: #ffffff;
@@ -40,4 +43,29 @@ body {
 .main-content {
     margin-left: 260px;
     padding: 20px;
+    min-width: 0;
+    max-width: calc(100% - 260px);
+    box-sizing: border-box;
+}
+
+/* Prevent tables from expanding the page */
+.main-content .table-responsive {
+    max-width: 100%;
+}
+
+/* Smaller screens */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        min-height: 0;
+        position: relative;
+    }
+
+    .main-content {
+        margin-left: 0;
+        max-width: 100%;
+        width: 100%;
+        padding: 15px;
+    }
 }

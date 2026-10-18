@@ -1,0 +1,36 @@
+
+{% extends "base_dashboard.html" %}
+
+{% block title %}Barangay Official Dashboard - DENGUARD{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <h2 class="fw-bold">Barangay Official Dashboard</h2>
+    <p>Welcome, {{ current_user.full_name }}!</p>
+    <p>Review dengue cases and monitor the situation in your barangay.</p>
+
+    <div class="row g-3 mt-3">
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+                <h5><i class="fas fa-folder-open me-2"></i>Case History</h5>
+                <p>Review reported dengue cases.</p>
+                <button class="btn btn-primary" disabled>View History</button>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+                <h5><i class="fas fa-chart-bar me-2"></i>Barangay Statistics</h5>
+                <p>Review case statistics and trends.</p>
+                <button class="btn btn-primary" disabled>View Statistics</button>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+                <h5><i class="fas fa-file-alt me-2"></i>Reports</h5>
+                <p>Review dengue monitoring reports.</p>
+                <button class="btn btn-primary" disabled>View Reports</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

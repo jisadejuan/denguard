@@ -1,0 +1,36 @@
+
+{% extends "base_dashboard.html" %}
+
+{% block title %}Health Worker Dashboard - DENGUARD{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <h2 class="fw-bold">Health Worker Dashboard</h2>
+    <p>Welcome, {{ current_user.full_name }}!</p>
+    <p>Monitor dengue cases in your assigned barangay.</p>
+
+    <div class="row g-3 mt-3">
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+                <h5><i class="fas fa-notes-medical me-2"></i>Record Dengue Case</h5>
+                <p>Add new patient case information.</p>
+                <button class="btn btn-primary" disabled>Record Case</button>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+                <h5><i class="fas fa-folder-open me-2"></i>Case Records</h5>
+                <p>Review recorded dengue cases.</p>
+                <button class="btn btn-primary" disabled>View Records</button>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+                <h5><i class="fas fa-chart-line me-2"></i>Case Monitoring</h5>
+                <p>Monitor dengue case trends.</p>
+                <button class="btn btn-primary" disabled>View Monitoring</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

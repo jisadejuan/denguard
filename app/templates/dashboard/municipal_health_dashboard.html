@@ -1,0 +1,36 @@
+
+{% extends "base_dashboard.html" %}
+
+{% block title %}Municipal Health Office Dashboard - DENGUARD{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <h2 class="fw-bold">Municipal Health Office Dashboard</h2>
+    <p>Welcome, {{ current_user.full_name }}!</p>
+    <p>Monitor dengue trends and review reports across barangays in Unisan, Quezon.</p>
+
+    <div class="row g-3 mt-3">
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+                <h5><i class="fas fa-map-marked-alt me-2"></i>Barangay Monitoring</h5>
+                <p>Review dengue activity across barangays.</p>
+                <button class="btn btn-primary" disabled>View Monitoring</button>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+                <h5><i class="fas fa-chart-line me-2"></i>Analytics</h5>
+                <p>Review dengue trends and statistics.</p>
+                <button class="btn btn-primary" disabled>View Analytics</button>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+                <h5><i class="fas fa-file-alt me-2"></i>Consolidated Reports</h5>
+                <p>Review monitoring reports for Unisan.</p>
+                <button class="btn btn-primary" disabled>View Reports</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

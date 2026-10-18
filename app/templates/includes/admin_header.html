@@ -1,10 +1,18 @@
-<nav class="navbar navbar-expand navbar-light bg-white px-4 py-2 rounded shadow-sm mb-4">
-    <div class="container-fluid">
-        <span class="navbar-brand mb-0 h5 fw-bold text-danger">
-            <i class="fas fa-mosquito me-2"></i>Barangay Dengue Case Tracking and Monitoring System
+<nav class="navbar navbar-expand navbar-light bg-white px-3 px-md-4 py-2 rounded shadow-sm mb-4">
+    <div class="container-fluid d-flex flex-wrap align-items-center justify-content-between gap-2">
+
+        <span class="navbar-brand mb-0 h5 fw-bold text-danger text-wrap"
+              style="white-space: normal; overflow-wrap: anywhere; min-width: 0; flex: 1 1 250px;">
+            <i class="fas fa-mosquito me-2"></i>
+            Barangay Dengue Case Tracking & Monitoring System
         </span>
-        <div class="d-flex align-items-center">
-            <a href="{{ url_for('auth.logout') }}" class="btn btn-outline-danger btn-sm"><i class="fas fa-sign-out-alt me-1"></i> Logout</a>
+
+        <div class="d-flex align-items-center flex-shrink-0">
+            <a href="{{ url_for('auth.logout') }}"
+               class="btn btn-outline-danger btn-sm">
+                <i class="fas fa-sign-out-alt me-1"></i> Logout
+            </a>
         </div>
+
     </div>
 </nav>
